@@ -52,6 +52,66 @@ keywords: NanoKVM, Remote desktop, Lichee, PiKVM, RISCV, tool
   > 若仅充电宝供电时IP存在，插入HDMI/电脑USB后IP消失则确认出现了该问题，请联系客服购买隔离器以解决
 
 ### 登录浏览器界面后，无画面
+
+#### 默认分辨率错误
+  NanoKVM仅支持1080P分辨率，但主机有概率输出了1080P以上规格的画面，推荐修改默认EDID来解决该问题，在此之前请在网页中升级到最新的APP（2.3.2以上）
+  > 使用 Cube/Lite 版本时，必须现场操作。修改后请重新上电以应用新配置，否则可能导致 HDMI 采集异常。
+  进入网页终端，执行命令：`/kvmapp/system/tool/nanokvm_update_edid /kvmapp/system/tool/E21_NanoKVM.bin`, Cube/Lite需要确认现场操作
+``` shell
+## PCIe版本 正常烧录输出：
+# /kvmapp/system/tool/nanokvm_update_edid /kvmapp/system/tool/E21_NanoKVM.bin 
+Chip Version: LT6911UXC
+Product Version : PCIE_A
+
+=========================================================
+Incorrect EDID may cause issues such as 
+inability to display images, please modify with caution
+=========================================================
+
+EDID data loaded successfully from /kvmapp/system/tool/E21_NanoKVM.bin
+Writing EDID....
+EDID write completed
+Reading EDID...
+EDID data verified successfully
+
+=========================================================
+✅  EDID update successful!
+=========================================================
+
+## Cube/Lite 正常烧录输出：
+# /kvmapp/system/tool/nanokvm_update_edid /kvmapp/system/tool/E21_NanoKVM.bin 
+Chip Version: LT6911UXC
+Product Version: CUBE_B
+
+=========================================================
+Incorrect EDID may cause issues such as 
+inability to display images, please modify with caution
+=========================================================
+
+
+==========================================================
+⚠️  WARNING: Hardware version detected as Cube/Lite!
+==========================================================
+After flashing, you MUST manually power cycle the device!
+Please ensure you can physically disconnect its power,
+NOT just remotely reboot it!!
+==========================================================
+
+Do you want to continue? (Y/N): 
+Y
+EDID data loaded successfully from /kvmapp/system/tool/E21_NanoKVM.bin
+Writing EDID....
+EDID write completed
+Reading EDID...
+EDID data verified successfully
+
+=========================================================
+✅  EDID update successful!
+Please manually power cycle the device to apply changes.
+=========================================================
+```
+
+#### 其他问题
   1. 被控主机可能处于睡眠状态，按下键盘任意按键尝试唤醒
   2. 非Chrome浏览器可能存在H264无图像而MJPEG模式正常显示，请使用Chrome浏览器再试
   3. PCIe版本可尝试点击`视频`图标下的重置HDMI
