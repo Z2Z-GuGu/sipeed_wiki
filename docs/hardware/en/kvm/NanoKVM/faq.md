@@ -54,6 +54,66 @@ The STA LED indicates the operating status of the NanoKVM. When functioning prop
    > If the IP exists only when powered by the power bank, but disappears after connecting HDMI/computer USB, this indicates the issue. Please contact customer service to purchase an isolator to resolve it.
 
 ### No Display After Logging into the Browser Interface
+
+#### Default Resolution Error
+ NanoKVM only supports 1080P resolution, but the host may occasionally output video signals with specifications higher than 1080P. It is recommended to modify the default EDID to resolve this issue. Before proceeding, please upgrade to the latest APP (version 2.3.2 or above) in the web interface.
+ > When using the Cube/Lite version, on-site operation is mandatory. After modification, please power cycle the device to apply the new configuration; otherwise, HDMI capture anomalies may occur.
+ Access the web terminal and execute the command: `/kvmapp/system/tool/nanokvm_update_edid /kvmapp/system/tool/E21_NanoKVM.bin`. Confirm on-site operation for Cube/Lite.
+``` shell
+## PCIe Version Normal Flashing Output:
+# /kvmapp/system/tool/nanokvm_update_edid /kvmapp/system/tool/E21_NanoKVM.bin 
+Chip Version: LT6911UXC
+Product Version : PCIE_A
+
+=========================================================
+Incorrect EDID may cause issues such as 
+inability to display images, please modify with caution
+=========================================================
+
+EDID data loaded successfully from /kvmapp/system/tool/E21_NanoKVM.bin
+Writing EDID....
+EDID write completed
+Reading EDID...
+EDID data verified successfully
+
+=========================================================
+✅  EDID update successful!
+=========================================================
+
+## Cube/Lite Normal Flashing Output:
+# /kvmapp/system/tool/nanokvm_update_edid /kvmapp/system/tool/E21_NanoKVM.bin 
+Chip Version: LT6911UXC
+Product Version: CUBE_B
+
+=========================================================
+Incorrect EDID may cause issues such as 
+inability to display images, please modify with caution
+=========================================================
+
+
+==========================================================
+⚠️  WARNING: Hardware version detected as Cube/Lite!
+==========================================================
+After flashing, you MUST manually power cycle the device!
+Please ensure you can physically disconnect its power,
+NOT just remotely reboot it!!
+==========================================================
+
+Do you want to continue? (Y/N): 
+Y
+EDID data loaded successfully from /kvmapp/system/tool/E21_NanoKVM.bin
+Writing EDID....
+EDID write completed
+Reading EDID...
+EDID data verified successfully
+
+=========================================================
+✅  EDID update successful!
+Please manually power cycle the device to apply changes.
+=========================================================
+```
+
+#### Other Issues
 1. The controlled host may be in sleep mode. Try pressing any key on the keyboard to wake it up.
 2. Non-Chrome browsers may experience issues with H264 not displaying, while MJPEG mode works normally. Please try again using Chrome.
 3. For the PCIe version, try clicking the reset HDMI option under the "Video" icon.
